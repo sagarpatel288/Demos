@@ -12,10 +12,12 @@ import androidx.fragment.app.FragmentManager;
  * 11/10/2019
  * Get a viewPager adapter that handles fragment caching, dynamic changes and configuration changes and returns
  * the working fragment
+ *
  * @author srdpatel
  * @since $1.0$
  */
 public class BaseViewPagerAdapter extends SmartFragmentStatePagerAdapter {
+
 
     private List<Fragment> mFragmentList = new ArrayList<>();
     private List<String> mTitleList = new ArrayList<>();
@@ -30,6 +32,19 @@ public class BaseViewPagerAdapter extends SmartFragmentStatePagerAdapter {
     }
 
     // Returns total number of pages
+
+    /**
+     * 11/10/2019
+     * a
+     * <p>
+     * $Long Description$
+     * </p>
+     * $Tight coupling with literal$ {@link #}
+     *
+     * @author srdpatel
+     * @see <a href="https://developer.android.com/reference/android/support/v4/app/FragmentPagerAdapterhttps://developer.android.com/reference/android/support/v4/app/FragmentPagerAdapter">How to use getCount method</a>
+     * @since $1.0$
+     */
     @Override
     public int getCount() {
         // com: 11/10/2019 manage configuration change as the variable can become null in that case
@@ -40,5 +55,9 @@ public class BaseViewPagerAdapter extends SmartFragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mTitleList.get(position);
+    }
+
+    public Fragment getFragment(ViewGroup containerViewPagerInstance, int position) {
+        return getRegisteredFragment(containerViewPagerInstance, position);
     }
 }

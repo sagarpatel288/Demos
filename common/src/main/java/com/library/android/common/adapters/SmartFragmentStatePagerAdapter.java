@@ -73,10 +73,10 @@ public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerA
      * @see <a href="https://gist.github.com/nesquena/c715c9b22fb873b1d259">Dynamic viewPager Adapter</a>
      * @since $1.0$
      */
-    private Fragment getRegisteredFragment(ViewGroup pagerInstance, int position) {
+    public Fragment getRegisteredFragment(ViewGroup pagerInstance, int position) {
         // comment by srdpatel: 11/10/2019 WeakReference is experimental and if it works, we better use it to save memory
         Fragment existingInstance = null;
-        if (weakReferenceFragmentArray.get(position) != null){
+        if (weakReferenceFragmentArray.size() > position && weakReferenceFragmentArray.get(position) != null){
             existingInstance = weakReferenceFragmentArray.get(position).get();
         }
         if (existingInstance == null) {
