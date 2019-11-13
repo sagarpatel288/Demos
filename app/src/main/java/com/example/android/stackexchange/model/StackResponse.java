@@ -10,11 +10,11 @@ import com.library.android.common.pojos.BasePojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StackSearchListItem extends BasePojo implements Parcelable {
+public class StackResponse extends BasePojo implements Parcelable {
 
-    @SerializedName("items")
+    @SerializedName("stackListItems")
     @Expose
-    private List<Item> items = null;
+    private List<StackListItem> stackListItems = null;
     @SerializedName("has_more")
     @Expose
     private boolean hasMore;
@@ -62,15 +62,15 @@ public class StackSearchListItem extends BasePojo implements Parcelable {
     /**
      * No args constructor for use in serialization
      */
-    public StackSearchListItem() {
+    public StackResponse() {
     }
 
     /**
      * Constructor
      */
-    public StackSearchListItem(List<Item> items, boolean hasMore, long quotaMax, long quotaRemaining, String errorId, String errorMessage, String errorName) {
+    public StackResponse(List<StackListItem> stackListItems, boolean hasMore, long quotaMax, long quotaRemaining, String errorId, String errorMessage, String errorName) {
         super();
-        this.items = items;
+        this.stackListItems = stackListItems;
         this.hasMore = hasMore;
         this.quotaMax = quotaMax;
         this.quotaRemaining = quotaRemaining;
@@ -79,12 +79,12 @@ public class StackSearchListItem extends BasePojo implements Parcelable {
         this.errorName = errorName;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<StackListItem> getStackListItems() {
+        return stackListItems;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setStackListItems(List<StackListItem> stackListItems) {
+        this.stackListItems = stackListItems;
     }
 
     public boolean isHasMore() {
@@ -118,7 +118,7 @@ public class StackSearchListItem extends BasePojo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeList(this.items);
+        dest.writeList(this.stackListItems);
         dest.writeByte(this.hasMore ? (byte) 1 : (byte) 0);
         dest.writeLong(this.quotaMax);
         dest.writeLong(this.quotaRemaining);
@@ -127,9 +127,9 @@ public class StackSearchListItem extends BasePojo implements Parcelable {
         dest.writeString(this.errorName);
     }
 
-    protected StackSearchListItem(Parcel in) {
-        this.items = new ArrayList<Item>();
-        in.readList(this.items, Item.class.getClassLoader());
+    protected StackResponse(Parcel in) {
+        this.stackListItems = new ArrayList<StackListItem>();
+        in.readList(this.stackListItems, StackListItem.class.getClassLoader());
         this.hasMore = in.readByte() != 0;
         this.quotaMax = in.readLong();
         this.quotaRemaining = in.readLong();
@@ -138,15 +138,15 @@ public class StackSearchListItem extends BasePojo implements Parcelable {
         this.errorName = in.readString();
     }
 
-    public static final Parcelable.Creator<StackSearchListItem> CREATOR = new Parcelable.Creator<StackSearchListItem>() {
+    public static final Parcelable.Creator<StackResponse> CREATOR = new Parcelable.Creator<StackResponse>() {
         @Override
-        public StackSearchListItem createFromParcel(Parcel source) {
-            return new StackSearchListItem(source);
+        public StackResponse createFromParcel(Parcel source) {
+            return new StackResponse(source);
         }
 
         @Override
-        public StackSearchListItem[] newArray(int size) {
-            return new StackSearchListItem[size];
+        public StackResponse[] newArray(int size) {
+            return new StackResponse[size];
         }
     };
 }

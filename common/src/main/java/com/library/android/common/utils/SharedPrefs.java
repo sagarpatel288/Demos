@@ -3,7 +3,7 @@ package com.library.android.common.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.library.android.common.baseconstants.BaseConstantStrings;
+import com.library.android.common.baseconstants.BaseConstants;
 
 
 /**
@@ -14,7 +14,7 @@ import com.library.android.common.baseconstants.BaseConstantStrings;
  * @since 1.0
  */
 
-public class SharedPrefs {
+public final class SharedPrefs {
 
     private static volatile SharedPrefs mSharedPrefs;
     private static volatile SharedPreferences mSharedPreferences;
@@ -24,15 +24,15 @@ public class SharedPrefs {
     private SharedPrefs() {
         //Prevent from the reflection
         if (mSharedPrefs != null) {
-            throw new RuntimeException(BaseConstantStrings.STR_MSG_ERROR_SHARED_PREF_REFLECTION);
+            throw new RuntimeException(BaseConstants.STR_MSG_ERROR_SHARED_PREF_REFLECTION);
         }
         //Prevent from the reflection
         if (mSharedPreferences != null) {
-            throw new RuntimeException(BaseConstantStrings.STR_MSG_ERROR_SHARED_PREF_REFLECTION);
+            throw new RuntimeException(BaseConstants.STR_MSG_ERROR_SHARED_PREF_REFLECTION);
         }
         //Prevent from the reflection
         if (mEditor != null) {
-            throw new RuntimeException(BaseConstantStrings.STR_MSG_ERROR_SHARED_PREF_REFLECTION);
+            throw new RuntimeException(BaseConstants.STR_MSG_ERROR_SHARED_PREF_REFLECTION);
         }
     }
 
@@ -79,7 +79,7 @@ public class SharedPrefs {
         if (mSharedPreferences == null) { //Checking for the first time
             synchronized (SharedPrefs.class) {
                 if (mSharedPreferences == null) { //Check for second time
-                    mSharedPreferences = mContext.getSharedPreferences(BaseConstantStrings.STR_SHARED_PREF,
+                    mSharedPreferences = mContext.getSharedPreferences(BaseConstants.STR_SHARED_PREF,
                             Context.MODE_PRIVATE); //Create new instance only if there is no instance ever created before
                 }
             }

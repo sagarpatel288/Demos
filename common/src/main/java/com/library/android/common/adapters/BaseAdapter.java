@@ -2,6 +2,7 @@ package com.library.android.common.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.Filter;
 import android.widget.Filterable;
 
@@ -12,6 +13,7 @@ import com.library.android.common.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -29,42 +31,42 @@ public abstract class BaseAdapter extends RecyclerView.Adapter implements Filter
     private Context mContext;
     private List mFilteredList;
     private List mOriginalList;
-    private Callbacks.EventCallBack mEventCallBack;
+    private Callbacks.RvAdapterCallback mRvAdapterCallback;
     private Intent mIntent;
     private int mPaginationLimit = -1;
 
-    public BaseAdapter(Context mContext, List mFilteredList, int mPaginationLimit, Callbacks.EventCallBack mEventCallBack) {
+    public BaseAdapter(Context mContext, List mFilteredList, int mPaginationLimit, Callbacks.RvAdapterCallback mRvAdapterCallback) {
         this.mContext = mContext;
         this.mFilteredList = mFilteredList;
         this.mPaginationLimit = mPaginationLimit;
-        this.mEventCallBack = mEventCallBack;
+        this.mRvAdapterCallback = mRvAdapterCallback;
         setContext(mContext);
         setList(mFilteredList);
         setOriginalList(mFilteredList);
         setPaginationLimit(mPaginationLimit);
-        setEventCallBack(mEventCallBack);
+        setRvAdapterCallBack(mRvAdapterCallback);
     }
 
-    public BaseAdapter(Context mContext, List mFilteredList, Callbacks.EventCallBack mEventCallBack, Intent mIntent) {
+    public BaseAdapter(Context mContext, List mFilteredList, Callbacks.RvAdapterCallback mRvAdapterCallback, Intent mIntent) {
         this.mContext = mContext;
         this.mFilteredList = mFilteredList;
-        this.mEventCallBack = mEventCallBack;
+        this.mRvAdapterCallback = mRvAdapterCallback;
         this.mIntent = mIntent;
         setContext(mContext);
         setList(mFilteredList);
         setOriginalList(mFilteredList);
-        setEventCallBack(mEventCallBack);
+        setRvAdapterCallBack(mRvAdapterCallback);
         setAdapterIntent(mIntent);
     }
 
-    public BaseAdapter(Context mContext, List mFilteredList, Callbacks.EventCallBack mEventCallBack) {
+    public BaseAdapter(Context mContext, List mFilteredList, Callbacks.RvAdapterCallback mRvAdapterCallback) {
         this.mContext = mContext;
         this.mFilteredList = mFilteredList;
-        this.mEventCallBack = mEventCallBack;
+        this.mRvAdapterCallback = mRvAdapterCallback;
         setContext(mContext);
         setList(mFilteredList);
         setOriginalList(mFilteredList);
-        setEventCallBack(mEventCallBack);
+        setRvAdapterCallBack(mRvAdapterCallback);
     }
 
     public List getOriginalList() {
@@ -95,12 +97,24 @@ public abstract class BaseAdapter extends RecyclerView.Adapter implements Filter
         this.mContext = mContext;
     }
 
-    public Callbacks.EventCallBack getEventCallBack() {
-        return mEventCallBack;
+    public FragmentActivity getActivity() {
+        return (FragmentActivity) getContext();
     }
 
-    public void setEventCallBack(Callbacks.EventCallBack mEventCallBack) {
-        this.mEventCallBack = mEventCallBack;
+    public Callbacks.RvAdapterCallback getRvAdapterCallBack() {
+        return mRvAdapterCallback;
+    }
+
+    public void setRvAdapterCallBack(Callbacks.RvAdapterCallback mRvAdapterCallback) {
+        this.mRvAdapterCallback = mRvAdapterCallback;
+    }
+
+    public boolean isValidItem(RecyclerView.ViewHolder viewHolder, int position, Object object) {
+        return isValidItem(viewHolder, position) && object != null;
+    }
+
+    public boolean isValidItem(RecyclerView.ViewHolder viewHolder, int position) {
+        return viewHolder != null && position != -1;
     }
 
     public Intent getAdapterIntent() {
@@ -131,6 +145,10 @@ public abstract class BaseAdapter extends RecyclerView.Adapter implements Filter
     @Override
     public int getItemCount() {
         return getList() != null ? getList().size() : 0;
+    }
+
+    public void onRvAdapterCallback(View view, int position, Object object, List list, Intent intent, boolean isDeleteCallback, boolean isListUpdateCallback) {
+
     }
 
     @SuppressWarnings("unchecked")
@@ -209,4 +227,8 @@ public abstract class BaseAdapter extends RecyclerView.Adapter implements Filter
     }
 
     public abstract List getFilteredList(String query);
+
+    public Object getItem(int position) {
+        return Utils.hasElement(getList(), position) ? getList().get(position) : null;
+    }
 }

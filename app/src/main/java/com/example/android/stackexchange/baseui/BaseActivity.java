@@ -24,7 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
 
     @Override
     public void onAttachFragment(@NonNull Fragment fragment) {
-        if (fragment instanceof BaseFragment){
+        if (fragment instanceof BaseFragment) {
             BaseFragment baseFragment = (BaseFragment) fragment;
             baseFragment.setChildHostCommunication(this);
         }
@@ -71,6 +71,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
         handleViews();
         setListeners();
         restoreValues(savedInstanceState);
+        otherStuff();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveState(outState);
     }
 
     public abstract void initControllers();
@@ -81,6 +88,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
 
     public abstract void restoreValues(Bundle savedInstanceState);
 
+    public abstract void otherStuff();
+
+    public abstract void saveState(Bundle saveInstanceState);
+
     public void hideProgressbar() {
         if (mBinding.progressbar != null) {
             mBinding.progressbar.setVisibility(View.GONE);
@@ -90,7 +101,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
     @Override
     protected void onPostResume() {
         super.onPostResume();
-
     }
 
     @Override

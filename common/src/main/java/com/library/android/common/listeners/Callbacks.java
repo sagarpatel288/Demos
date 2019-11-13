@@ -22,15 +22,33 @@ public abstract class Callbacks {
         void onChildHostCommunication(View view, Intent intent);
     }
 
-    public interface EventCallBack {
-        void onEventCallBack(View view, int position, Object object, List list, Intent intent);
+    public interface RvAdapterCallback {
+        void onRvAdapterCallback(View view, int position, Object object, List list, Intent intent, boolean isDeleteCallback, boolean isListUpdateCallback);
     }
 
     public interface NetworkConnectionListener {
         void onConnectionChanged(boolean isConnected);
     }
 
-    public interface AdapterCallback {
-        void onGetAdapterCallback(View view, int position, Object parcel, List list, Intent intent);
+    public interface ApiResponse {
+        void onSuccess(Object object, Intent intent);
+
+        void onFail(Object object, Intent intent);
+    }
+
+    public interface ApiResponseDetail {
+        void onSuccess(Object object, int pageNumber, Intent intent);
+
+        void onCancel(int pageNumber, Intent intent);
+
+        void onFail(int pageNumber, Intent intent);
+
+        void onNoDataAtAll(int pageNumber, Intent intent);
+
+        void onNoMoreData(int pageNumber, Intent intent);
+
+        void onEmptySearchResult(int pageNumber, Intent intent);
+
+        void onGetData(Object object, List list, int pageNumber, Intent intent);
     }
 }

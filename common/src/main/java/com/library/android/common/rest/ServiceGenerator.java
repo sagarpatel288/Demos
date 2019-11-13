@@ -1,5 +1,7 @@
 package com.library.android.common.rest;
 
+import com.library.android.common.BuildConfig;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -37,7 +39,7 @@ public class ServiceGenerator {
 
     public static <S> S createService(
             Class<S> serviceClass) {
-        if (!httpClient.interceptors().contains(logging)) {
+        if (BuildConfig.DEBUG && !httpClient.interceptors().contains(logging)) {
             logging.level(HttpLoggingInterceptor.Level.BODY);
             httpClient.addInterceptor(logging);
             builder.client(httpClient.build());

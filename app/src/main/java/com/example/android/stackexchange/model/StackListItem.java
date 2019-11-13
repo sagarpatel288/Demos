@@ -10,7 +10,7 @@ import com.library.android.common.pojos.BasePojo;
 import java.util.List;
 
 
-public class Item extends BasePojo {
+public class StackListItem extends BasePojo {
 
     @SerializedName("tags")
     @Expose
@@ -55,7 +55,7 @@ public class Item extends BasePojo {
     /**
      * No args constructor for use in serialization
      */
-    public Item() {
+    public StackListItem() {
     }
 
     /**
@@ -73,7 +73,7 @@ public class Item extends BasePojo {
      * @param acceptedAnswerId
      * @param viewCount
      */
-    public Item(List<String> tags, Owner owner, boolean isAnswered, long viewCount, long answerCount, long score, long lastActivityDate, long creationDate, long questionId, String link, String title, long lastEditDate, long acceptedAnswerId) {
+    public StackListItem(List<String> tags, Owner owner, boolean isAnswered, long viewCount, long answerCount, long score, long lastActivityDate, long creationDate, long questionId, String link, String title, long lastEditDate, long acceptedAnswerId) {
         super();
         this.tags = tags;
         this.owner = owner;
@@ -217,7 +217,7 @@ public class Item extends BasePojo {
         dest.writeLong(this.acceptedAnswerId);
     }
 
-    protected Item(Parcel in) {
+    protected StackListItem(Parcel in) {
         super(in);
         this.tags = in.createStringArrayList();
         this.owner = in.readParcelable(Owner.class.getClassLoader());
@@ -234,15 +234,15 @@ public class Item extends BasePojo {
         this.acceptedAnswerId = in.readLong();
     }
 
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
+    public static final Creator<StackListItem> CREATOR = new Creator<StackListItem>() {
         @Override
-        public Item createFromParcel(Parcel source) {
-            return new Item(source);
+        public StackListItem createFromParcel(Parcel source) {
+            return new StackListItem(source);
         }
 
         @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
+        public StackListItem[] newArray(int size) {
+            return new StackListItem[size];
         }
     };
 }

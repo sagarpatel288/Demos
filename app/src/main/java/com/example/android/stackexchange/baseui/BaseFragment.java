@@ -60,7 +60,7 @@ public abstract class BaseFragment extends Fragment implements Callbacks.OnFragm
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        // TODO: 11/10/2019 Save your variables here
+        saveState(outState);
     }
 
     @Nullable
@@ -90,8 +90,7 @@ public abstract class BaseFragment extends Fragment implements Callbacks.OnFragm
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // TODO: 11/10/2019 Restore your variables for savedInstanceState here
-
+        restoreValues(savedInstanceState);
     }
 
     public abstract int getLayoutId();
@@ -125,6 +124,7 @@ public abstract class BaseFragment extends Fragment implements Callbacks.OnFragm
         handleViews();
         setListeners();
         restoreValues(mSavedInstanceState);
+        otherStuff();
     }
 
     public abstract void initControllers();
@@ -134,6 +134,10 @@ public abstract class BaseFragment extends Fragment implements Callbacks.OnFragm
     public abstract void setListeners();
 
     public abstract void restoreValues(Bundle savedInstanceState);
+
+    public abstract void otherStuff();
+
+    public abstract void saveState(Bundle saveInstanceState);
 
     public void hideProgressbar() {
         if (mBinding.progressbar != null) {
